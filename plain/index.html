@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>原生 websocket 实现</title>
+</head>
+<body>
+  <input type="text">
+  <button>发送</button>
+  <script>
+    const ws = new WebSocket('ws://localhost:6060');
+
+    ws.addEventListener('message', (event) => {
+      const div = document.createElement('div');
+      div.innerText = event.data;
+      document.body.append(div);
+    })
+
+    // 点击发送按钮，将输入框中的内容发送给服务器
+    const input = document.querySelector('input')
+    const btn = document.querySelector('button');
+    btn.onclick = () => {
+      ws.send(input.value);
+      input.value = '';
+    }
+  </script>
+</body>
+</html>
